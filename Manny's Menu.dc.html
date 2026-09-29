@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/classical-707525cc-a7d7-4acb-bab5-3da38cd6dd0e/styles.css">
+<script src="_ds/classical-707525cc-a7d7-4acb-bab5-3da38cd6dd0e/_ds_bundle.js"></script>
+<script src="site-content.js"></script>
+<script src="color-modes.js"></script>
+<style>body{margin:0;background:var(--color-bg);color:var(--color-text)}a{color:var(--color-accent-700)}a:hover{color:var(--color-accent-900)}</style>
+</helmet>
+<div style="font-family:var(--font-body);min-height:100vh">
+<header style="position:sticky;top:0;z-index:20;background:var(--color-bg);border-bottom:1px solid var(--color-divider)">
+<div style="max-width:1100px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+<a href="Manny's Home.dc.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--color-text)"><img src="assets/mannys-logo.jpeg" alt="Manny's Waffles" style="height:44px;width:44px;object-fit:cover;border-radius:50%"><span style="font-family:var(--font-heading);font-size:24px">Manny’s Waffles</span></a>
+<a href="Manny's Home.dc.html" style="margin-left:auto">← Home</a>
+<div style="display:flex;gap:8px;align-items:center"><sc-for list="{{ modes }}" as="m" hint-placeholder-count="3"><button onClick="{{ m.pick }}" title="{{ m.label }}" aria-label="{{ m.label }} mode" style="width:22px;height:22px;border-radius:50%;cursor:pointer;padding:0;background:{{ m.swatch }};border:2px solid {{ m.ring }};outline:{{ m.outline }};outline-offset:2px"></button></sc-for></div>
+<a class="btn btn-primary" href="#order" style="white-space:nowrap;flex:none">ORDER NOW</a>
+</div>
+<nav style="max-width:1100px;margin:0 auto;padding:0 24px 12px;display:flex;gap:18px;overflow-x:auto;font-size:15px"><sc-for list="{{ menu }}" as="c" hint-placeholder-count="6"><a href="#{{ c.id }}" style="white-space:nowrap">{{ c.name }}</a></sc-for></nav>
+</header>
+<main style="max-width:1100px;margin:0 auto;padding:48px 24px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:12px"><h1 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(44px,6vw,72px);margin:0">Menu</h1><p style="margin:0;color:var(--color-neutral-700)">{{ menuNote }}</p></div>
+<sc-for list="{{ menu }}" as="c" hint-placeholder-count="3">
+<section id="{{ c.id }}" style="display:flex;flex-direction:column;gap:20px;scroll-margin-top:130px">
+<div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--color-accent);padding-bottom:10px"><h2 style="font-family:var(--font-heading);font-weight:500;font-size:38px;margin:0">{{ c.name }}</h2><span style="font-style:italic;color:var(--color-neutral-700)">{{ c.blurb }}</span></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));column-gap:48px">
+<sc-for list="{{ c.items }}" as="i"><div style="display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--color-divider);align-items:center">
+<sc-if value="{{ i.image }}"><div class="plate" style="width:84px;height:84px;flex:none;overflow:hidden"><img src="{{ i.image }}" alt="{{ i.name }}" style="width:100%;height:100%;object-fit:cover;display:block"></div></sc-if>
+<div style="flex:1;display:flex;flex-direction:column;gap:4px;min-width:0"><div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><span style="font-family:var(--font-heading);font-size:22px;font-weight:500">{{ i.name }}</span><span style="font-feature-settings:'tnum';flex:none">{{ i.price }}</span></div><span style="font-size:15px;color:var(--color-neutral-700)">{{ i.desc }}</span></div>
+</div></sc-for>
+</div></section>
+</sc-for>
+</main>
+<footer id="order" style="border-top:1px solid var(--color-divider)"><div style="max-width:1100px;margin:0 auto;padding:56px 24px;display:flex;flex-direction:column;gap:24px;align-items:center;text-align:center">
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:44px;margin:0">Order now</h2>
+<div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center"><sc-for list="{{ order }}" as="p" hint-placeholder-count="2"><a class="btn btn-primary" href="{{ p.url }}" target="_blank" style="white-space:nowrap;flex:none;min-width:200px">{{ p.name }}</a></sc-for></div>
+</div></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  mode() { let m; try { m = localStorage.getItem('mannys-mode'); } catch (e) {} return this.state.mode || m || this.props.mode || 'cream'; }
+  componentDidUpdate() { window.applyMannysTheme && window.applyMannysTheme(this.mode()); }
+  modeVals() { const T = window.MANNYS_THEMES || {}, cur = this.mode(); return Object.keys(T).map(k => ({ label: T[k].label, swatch: T[k].swatch, ring: T[k].ring, outline: k === cur ? '1px solid var(--color-text)' : 'none', pick: () => this.setState({ mode: k }) })); }
+  componentDidMount() { const ap = () => window.applyMannysTheme ? window.applyMannysTheme(this.mode()) : setTimeout(ap, 100); ap(); if (!window.MANNYS) this.w = setInterval(() => { if (window.MANNYS) { clearInterval(this.w); this.forceUpdate(); } }, 100); }
+  componentWillUnmount() { clearInterval(this.w); }
+  renderVals() {
+    const M = window.MANNYS;
+    const modes = this.modeVals();
+    if (!M) return { modes };
+    return { modes, menu: M.menu, menuNote: M.menuNote, order: M.order };
+  }
+}
+</script>
+</body>
+</html>

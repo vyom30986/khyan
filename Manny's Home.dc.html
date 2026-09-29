@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/classical-707525cc-a7d7-4acb-bab5-3da38cd6dd0e/styles.css">
+<script src="_ds/classical-707525cc-a7d7-4acb-bab5-3da38cd6dd0e/_ds_bundle.js"></script>
+<script src="site-content.js"></script>
+<script src="color-modes.js"></script>
+<style>body{margin:0;background:var(--color-bg);color:var(--color-text)}a{color:var(--color-accent-700)}a:hover{color:var(--color-accent-900)}</style>
+</helmet>
+<div style="font-family:var(--font-body);min-height:100vh">
+<sc-if value="{{ isConcept }}" hint-placeholder-val="{{ true }}"><div style="text-align:center;padding:6px 16px;font-size:12px;letter-spacing:.08em;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">CONCEPT PREVIEW · Stock photos and sample prices are placeholders</div></sc-if>
+<header style="position:sticky;top:0;z-index:20;background:var(--color-bg);border-bottom:1px solid var(--color-divider)">
+<div style="max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+<a href="Manny's Home.dc.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--color-text)"><img src="assets/mannys-logo.jpeg" alt="Manny's Waffles" style="height:44px;width:44px;object-fit:cover;border-radius:50%"><span style="font-family:var(--font-heading);font-size:24px">Manny’s Waffles</span></a>
+<nav style="display:flex;gap:20px;margin-left:auto;flex-wrap:wrap;font-size:15px"><a href="Manny's Menu.dc.html">Menu</a><a href="#build">Build</a><a href="#visit">Visit</a><a href="{{ igUrl }}" target="_blank">Instagram</a></nav>
+<div style="display:flex;gap:8px;align-items:center"><sc-for list="{{ modes }}" as="m" hint-placeholder-count="3"><button onClick="{{ m.pick }}" title="{{ m.label }}" aria-label="{{ m.label }} mode" style="width:22px;height:22px;border-radius:50%;cursor:pointer;padding:0;background:{{ m.swatch }};border:2px solid {{ m.ring }};outline:{{ m.outline }};outline-offset:2px"></button></sc-for></div>
+<a class="btn btn-primary" href="#order" style="white-space:nowrap;flex:none">ORDER NOW</a>
+</div></header>
+
+<section style="max-width:1200px;margin:0 auto;padding:48px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:48px;align-items:center">
+<div style="display:flex;flex-direction:column;gap:20px">
+<div style="font-size:13px;letter-spacing:.14em;color:var(--color-accent-700)">GURUGRAM · SINCE DAY ONE</div>
+<h1 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(44px,6vw,76px);line-height:1.02;margin:0;text-wrap:pretty">Warm waffles, cold gelato, open late.</h1>
+<p style="margin:0;font-size:18px;line-height:1.6;max-width:44ch;color:var(--color-neutral-800)">Made fresh to order at M3M 65th Avenue and 32nd Avenue.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn btn-primary" href="#order" style="white-space:nowrap;flex:none">ORDER NOW</a><a class="btn btn-secondary" href="Manny's Menu.dc.html" style="white-space:nowrap;flex:none">See the menu</a></div>
+<div style="display:flex;align-items:center;gap:10px;font-size:15px"><span style="width:8px;height:8px;border-radius:50%;background:{{ openDot }}"></span><span>{{ openText }}</span></div>
+</div>
+<div class="plate" style="aspect-ratio:4/5;max-height:640px;overflow:hidden">{{ heroVideo }}</div>
+</section>
+
+<hr class="hr" style="max-width:1152px;margin:0 auto">
+<section style="max-width:1200px;margin:0 auto;padding:64px 24px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:32px"><h2 style="font-family:var(--font-heading);font-weight:500;font-size:44px;margin:0">Bestsellers</h2><a href="Manny's Menu.dc.html">Full menu →</a></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:32px">
+<sc-for list="{{ bestsellers }}" as="b" hint-placeholder-count="6">
+<article style="display:flex;flex-direction:column;gap:12px">
+<div class="plate" style="aspect-ratio:1;overflow:hidden"><img src="{{ b.image }}" alt="{{ b.name }}" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+<div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><h3 style="font-family:var(--font-heading);font-weight:500;font-size:26px;margin:0">{{ b.name }}</h3><span style="font-feature-settings:'tnum'">{{ b.price }}</span></div>
+<p style="margin:0;color:var(--color-neutral-700);line-height:1.5">{{ b.desc }}</p>
+<sc-if value="{{ b.badge }}"><span class="tag tag-outline" style="align-self:flex-start">{{ b.badge }}</span></sc-if>
+</article>
+</sc-for></div></section>
+
+<hr class="hr" style="max-width:1152px;margin:0 auto">
+<section id="build" style="max-width:1200px;margin:0 auto;padding:64px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:48px;align-items:start">
+<div style="display:flex;flex-direction:column;gap:40px">
+<h2 style="font-family:var(--font-heading);font-weight:500;font-size:44px;margin:0">Build your craving</h2>
+<sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;gap:14px;align-items:baseline"><span style="font-family:var(--font-heading);font-size:28px;color:var(--color-accent);font-feature-settings:'tnum'">{{ s.num }}</span><span style="letter-spacing:.1em;font-size:15px">{{ s.title }}</span><span style="font-size:14px;color:var(--color-neutral-600)">{{ s.hint }}</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:10px">
+<sc-for list="{{ s.opts }}" as="o"><button onClick="{{ o.toggle }}" style="font-family:var(--font-body);font-size:15px;padding:10px 16px;border-radius:var(--radius-md);cursor:pointer;border:1px solid {{ o.border }};background:{{ o.bg }};color:var(--color-text)">{{ o.name }}</button></sc-for>
+</div></div>
+</sc-for>
+</div>
+<aside class="card elev-sm" style="position:sticky;top:96px;display:flex;flex-direction:column;gap:16px;padding:28px">
+<div class="card-kicker">YOUR ORDER</div>
+<sc-for list="{{ summary }}" as="r" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:4px;padding-bottom:12px;border-bottom:1px solid var(--color-divider)"><span style="font-size:13px;letter-spacing:.08em;color:var(--color-neutral-600)">{{ r.label }}</span><span style="font-family:var(--font-heading);font-size:22px">{{ r.value }}</span></div></sc-for>
+<p style="margin:0;font-size:14px;color:var(--color-neutral-700);line-height:1.5">Tell the counter, or add these on Zomato or Swiggy.</p>
+<a class="btn btn-primary btn-block" href="#order" style="white-space:nowrap;flex:none">ORDER NOW</a>
+<button class="btn btn-ghost" onClick="{{ reset }}" style="white-space:nowrap;flex:none">Start over</button>
+</aside>
+</section>
+
+<hr class="hr" style="max-width:1152px;margin:0 auto">
+<section style="max-width:1200px;margin:0 auto;padding:64px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:48px;align-items:center">
+<div class="plate" style="aspect-ratio:4/3;overflow:hidden"><img src="{{ storyImg }}" alt="Inside Manny's" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+<div style="display:flex;flex-direction:column;gap:18px"><div style="font-size:13px;letter-spacing:.14em;color:var(--color-accent-700)">OUR STORY</div>
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:36px;line-height:1.15;margin:0;text-wrap:pretty">{{ story.headline }}</h2>
+<sc-for list="{{ story.body }}" as="p"><p style="margin:0;line-height:1.7;text-align:justify;hyphens:auto">{{ p }}</p></sc-for></div>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:0 24px 64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:32px">
+<sc-for list="{{ experience }}" as="e" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:10px"><div class="plate" style="aspect-ratio:3/4;overflow:hidden"><img src="{{ e.image }}" alt="{{ e.title }}" style="width:100%;height:100%;object-fit:cover;display:block"></div><div style="letter-spacing:.12em;font-size:14px">{{ e.title }}</div><div style="font-family:var(--font-heading);font-size:22px;font-style:italic">{{ e.line }}</div></div></sc-for>
+</section>
+
+<hr class="hr" style="max-width:1152px;margin:0 auto">
+<section id="visit" style="max-width:1200px;margin:0 auto;padding:64px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:48px">
+<div style="display:flex;flex-direction:column;gap:28px"><h2 style="font-family:var(--font-heading);font-weight:500;font-size:44px;margin:0">Visit</h2>
+<sc-for list="{{ locations }}" as="l" hint-placeholder-count="2"><div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;gap:10px;align-items:center"><h3 style="font-family:var(--font-heading);font-weight:500;font-size:26px;margin:0">{{ l.name }}</h3><sc-if value="{{ l.primary }}"><span class="tag tag-accent">Main</span></sc-if></div><span>{{ l.line1 }}</span><span style="color:var(--color-neutral-700)">{{ l.line2 }}</span><a href="{{ l.mapUrl }}" target="_blank">Directions →</a></div></sc-for>
+<a href="{{ phoneHref }}">{{ phone }}</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px"><div class="card-kicker" style="margin-bottom:8px">HOURS · 65TH AVENUE</div>
+<sc-for list="{{ hours }}" as="h" hint-placeholder-count="7"><div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--color-divider);font-weight:{{ h.weight }}"><span>{{ h.day }}</span><span style="font-feature-settings:'tnum'">{{ h.label }}</span></div></sc-for>
+<p style="margin:8px 0 0;font-size:14px;color:var(--color-neutral-700)">{{ hoursNote }}</p></div>
+</section>
+
+<hr class="hr" style="max-width:1152px;margin:0 auto">
+<section style="max-width:1200px;margin:0 auto;padding:64px 24px;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px"><h2 style="font-family:var(--font-heading);font-weight:500;font-size:44px;margin:0">{{ igHandle }}</h2><a href="{{ igUrl }}" target="_blank">Follow on Instagram →</a></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:12px"><sc-for list="{{ igImgs }}" as="g" hint-placeholder-count="6"><a href="{{ igUrl }}" target="_blank" class="plate" style="aspect-ratio:1;overflow:hidden;display:block"><img src="{{ g }}" alt="Manny's on Instagram" style="width:100%;height:100%;object-fit:cover;display:block"></a></sc-for></div>
+</section>
+
+<footer id="order" style="border-top:1px solid var(--color-divider)"><div style="max-width:1200px;margin:0 auto;padding:64px 24px;display:flex;flex-direction:column;gap:28px;align-items:center;text-align:center">
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:clamp(36px,5vw,56px);margin:0">Order now</h2>
+<div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center"><sc-for list="{{ order }}" as="p" hint-placeholder-count="2"><a class="btn btn-primary" href="{{ p.url }}" target="_blank" style="white-space:nowrap;flex:none;min-width:200px;flex-direction:column;gap:2px;padding:14px 24px"><span style="font-size:18px">{{ p.name }}</span><span style="font-size:13px">{{ p.note }}</span></a></sc-for></div>
+<div style="font-size:13px;color:var(--color-neutral-600)">© Manny’s Waffles, Gurugram</div>
+</div></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;mode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cream&quot;,&quot;chocolate&quot;,&quot;golden&quot;],&quot;default&quot;:&quot;cream&quot;,&quot;tsType&quot;:&quot;'cream'|'chocolate'|'golden'&quot;}}">
+class Component extends DCLogic {
+  mode() { let m; try { m = localStorage.getItem('mannys-mode'); } catch (e) {} return this.state.mode || m || this.props.mode || 'cream'; }
+  componentDidUpdate() { window.applyMannysTheme && window.applyMannysTheme(this.mode()); }
+  modeVals() { const T = window.MANNYS_THEMES || {}, cur = this.mode(); return Object.keys(T).map(k => ({ label: T[k].label, swatch: T[k].swatch, ring: T[k].ring, outline: k === cur ? '1px solid var(--color-text)' : 'none', pick: () => this.setState({ mode: k }) })); }
+  state = { sel: {}, now: new Date() };
+  componentDidMount() { const ap = () => window.applyMannysTheme ? window.applyMannysTheme(this.mode()) : setTimeout(ap, 100); ap(); this.t = setInterval(() => this.setState({ now: new Date() }), 60000); if (!window.MANNYS) this.w = setInterval(() => { if (window.MANNYS) { clearInterval(this.w); this.forceUpdate(); } }, 100); }
+  componentWillUnmount() { clearInterval(this.t); clearInterval(this.w); }
+  openState(M) {
+    const d = this.state.now, h = d.getHours() + d.getMinutes() / 60, dow = d.getDay();
+    const today = M.hours.find(x => x.dow === dow), yest = M.hours.find(x => x.dow === (dow + 6) % 7);
+    if (yest && yest.close > 24 && h < yest.close - 24) return [true, 'Open now · until ' + yest.label.split('– ')[1]];
+    if (today && h >= today.open && h < today.close) return [true, 'Open now · until ' + today.label.split('– ')[1]];
+    if (today && h < today.open) return [false, 'Closed · opens today ' + today.label.split(' –')[0]];
+    return [false, 'Closed · opens tomorrow'];
+  }
+  toggle(step, name) {
+    this.setState(s => {
+      const cur = s.sel[step.id] || [];
+      let next;
+      if (!step.multi) next = cur[0] === name ? [] : [name];
+      else if (cur.includes(name)) next = cur.filter(x => x !== name);
+      else next = cur.length >= step.max ? cur : [...cur, name];
+      return { sel: { ...s.sel, [step.id]: next } };
+    });
+  }
+  renderVals() {
+    const M = window.MANNYS;
+    const modes = this.modeVals();
+    if (!M) return { modes };
+    const [open, openText] = this.openState(M);
+    const sel = this.state.sel;
+    return {
+      modes, isConcept: M.isConcept,
+      igUrl: M.instagram.url, igHandle: M.instagram.handle, igImgs: M.images.instagram,
+      openText, openDot: open ? '#3E9B57' : 'var(--color-neutral-500)',
+      heroVideo: React.createElement('video', { src: M.heroVideo.src, poster: M.heroVideo.poster, autoPlay: true, muted: true, loop: true, playsInline: true, style: { width: '100%', height: '100%', objectFit: 'cover', display: 'block' } }),
+      bestsellers: M.bestsellers,
+      steps: M.builder.map(st => ({ ...st, opts: st.options.map(o => { const on = (sel[st.id] || []).includes(o.name); return { name: o.name, border: on ? 'var(--color-accent)' : 'var(--color-divider)', bg: on ? 'var(--color-accent-100)' : 'transparent', toggle: () => this.toggle(st, o.name) }; }) })),
+      summary: M.builder.map(st => ({ label: st.title, value: (sel[st.id] || []).join(', ') || '—' })),
+      reset: () => this.setState({ sel: {} }),
+      storyImg: M.images.story, story: M.story, experience: M.images.experience,
+      locations: M.locations.map(l => ({ ...l, mapUrl: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(l.mapQuery) })),
+      phone: M.phone, phoneHref: M.phoneHref,
+      hours: M.hours.map(h => ({ ...h, weight: h.dow === this.state.now.getDay() ? 600 : 400 })),
+      hoursNote: M.hoursNote, order: M.order,
+    };
+  }
+}
+</script>
+</body>
+</html>
